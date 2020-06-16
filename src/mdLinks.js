@@ -13,4 +13,8 @@ const mdLinks = (inputPath, options = { validate: false }) => new Promise((resol
 });
 
 // console.log(mdLinks('./test_example', { validate: true }));
-mdLinks('./test_example', { validate: true }).then((res) => console.log(res));
+// mdLinks('./test_example', { validate: true }).then((res) => console.log(res));
+
+module.exports = {
+  mdLinks,
+};
