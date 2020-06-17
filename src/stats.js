@@ -4,7 +4,7 @@ const unique = (arrayObjLinks) => {
   return totalUniqueLinks.size;
 };
 
-const broken = (arrayObjLinks) => arrayObjLinks.filter((link) => link.status >= 404).length;
+const broken = (arrayObjLinks) => arrayObjLinks.filter((link) => link.statusText === 'FAIL').length;
 
 // const array = [
 //   {
