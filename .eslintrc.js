@@ -24,6 +24,7 @@ module.exports = {
     'jest/no-identical-title': 'error',
     'jest/prefer-to-have-length': 'warn',
     'jest/valid-expect': 'error',
+    'jest/no-test-callback':0,
   },
   plugins: ['jest'],
 };
