@@ -1,23 +1,23 @@
-const debug = require('debug')('main');
+// const debug = require('debug')('main');
 const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
 
 // FUNCION PARA VALIDAR RUTA =3
 const isValidRoute = (route) => fs.existsSync(route);
-debug(isValidRoute('./test_example/directory'));
+// debug(isValidRoute('./test_example/directory'));
 
 // FUNCION OBTENER SIEMPRE UNA RUTA ABSOLUTA =3
 const getAbsoluteRoute = (route) => (path.isAbsolute(route) ? route : path.resolve(route));
-debug(getAbsoluteRoute('./test_example/directory1'));
+// debug(getAbsoluteRoute('./test_example/directory1'));
 
 // FUNCION PARA SABER SI LA RUTA ES UN ARCHIVO =3
 const isFile = (route) => fs.statSync(route).isFile();
-debug(isFile('./test_example/directory1/file1_2.js'));
+// debug(isFile('./test_example/directory1/file1_2.js'));
 
 // FUNCION PARA SABER SI ES UN ARCHIVO .MD
 const isMdFile = (route) => (path.extname(route) === '.md');
-debug(isMdFile('./test_example/file1.md'));
+// debug(isMdFile('./test_example/file1.md'));
 
 // FUNCION QUE BUSCA LOS ARCHIVOS MD
 const getMdFiles = (routeFile) => {
@@ -37,7 +37,7 @@ const getMdFiles = (routeFile) => {
   }
   return arrayMdFile;
 };
-debug(getMdFiles('./test_example/file1.md'));
+// debug(getMdFiles('./test_example/file1.md'));
 
 // FUNCION PARA RUTAS ABSOLUTAS DE LOS ARCHIVOS ENCONTRADOS
 const getLinksMd = (route) => {
