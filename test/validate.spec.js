@@ -31,13 +31,13 @@ const output = [
   },
 ];
 
-describe('Find the MD file', () => {
+describe('Funcion validar los Link encontrados en Archivo md', () => {
   it('Deberia ser una funcion', () => {
     expect(typeof validate.validateLinks).toBe('function');
   });
-  it('Deberia retornar', () => expect(validate.validateLinks('./test_example')).resolves.toEqual(output));
+  it('Deberia retornar un array de obj con propiedades: href, text, path, status y StatusText', () => expect(validate.validateLinks('./test_example')).resolves.toEqual(output));
 
-  it('deberia devolver un arreglo de objetos', (done) => validate.validateLinks('./test_example')
+  it('Deberia retornar un array de obj', (done) => validate.validateLinks('./test_example')
     .then((response) => {
       expect(response).toEqual(output);
       done();
