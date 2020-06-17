@@ -1,5 +1,3 @@
-// const path = require('path');
-// const fetchMock = require('node-fetch');
 const validate = require('../src/validate.js');
 
 const output = [
@@ -9,6 +7,13 @@ const output = [
     path: 'D:\\LABORATORIA\\LIM012-fe-md-links\\test_example\\directory1\\file1_1.md',
     status: 200,
     statusText: 'OK',
+  },
+  {
+    href: 'https://esnodejs.org/',
+    text: 'Node.js',
+    path: 'D:\\LABORATORIA\\LIM012-fe-md-links\\test_example\\directory1\\file1_1.md',
+    status: 'ERROR',
+    statusText: 'FAIL',
   },
   {
     href: 'https://developers.google.com/vs/',
@@ -31,4 +36,10 @@ describe('Find the MD file', () => {
     expect(typeof validate.validateLinks).toBe('function');
   });
   it('Deberia retornar', () => expect(validate.validateLinks('./test_example')).resolves.toEqual(output));
+
+  it('deberia devolver un arreglo de objetos', (done) => validate.validateLinks('./test_example')
+    .then((response) => {
+      expect(response).toEqual(output);
+      done();
+    }));
 });
