@@ -29,7 +29,6 @@ const getMdFiles = (routeFile) => {
     }
   } else {
     const arrayOfFiles = fs.readdirSync(route);
-    // debug('Lista dearchivos', arrayOfFiles);
     arrayOfFiles.forEach((file) => {
       const arrayMd = getMdFiles(path.join(route, file));
       arrayMdFile = arrayMdFile.concat(arrayMd);
@@ -45,7 +44,7 @@ const getLinksMd = (route) => {
   const renderer = new marked.Renderer();
   const arrayofLinks = [];
   arrayMdFiles.forEach((filePath) => {
-    const file = fs.readFileSync(filePath, 'utf8').toString();
+    const file = fs.readFileSync(filePath, 'utf8');
     renderer.link = (urlFile, _, urlText) => {
       arrayofLinks.push({
         href: urlFile,

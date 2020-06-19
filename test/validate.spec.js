@@ -37,9 +37,11 @@ describe('Funcion validar los Link encontrados en Archivo md', () => {
   });
   it('Deberia retornar un array de obj con propiedades: href, text, path, status y StatusText', () => expect(validate.validateLinks('./test_example')).resolves.toEqual(output));
 
-  it('Deberia retornar un array de obj', (done) => validate.validateLinks('./test_example')
-    .then((response) => {
-      expect(response).toEqual(output);
-      done();
-    }));
+  it('Deberia retornar un array de obj', (done) => {
+    validate.validateLinks('./test_example')
+      .then((response) => {
+        expect(response).toEqual(output);
+        done();
+      });
+  });
 });

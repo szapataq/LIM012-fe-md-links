@@ -6,6 +6,7 @@ const unique = (arrayObjLinks) => {
 
 const broken = (arrayObjLinks) => arrayObjLinks.filter((link) => link.statusText === 'FAIL').length;
 
+
 // const array = [
 //   {
 //     href: 'https://es.wikipedia.org/wiki/Markdown',
