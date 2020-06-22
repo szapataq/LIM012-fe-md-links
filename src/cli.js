@@ -1,58 +1,76 @@
 #!/usr/bin/env node
 
 const chalk = require('chalk');
-const stat = require('./stats.js');
-const mdLink = require('./mdLinks.js');
+const api = require('./mdLinks.js');
+const opt = require('./optionsCli');
 
-
-const getOption = (option1, option2) => {
-  if (option1 === '--validate' && option2 === undefined) {
-    return { validate: true };
-  }
-  if (option1 === '--stats' && option2 === '--validate') {
-    return { validate: true };
-  }
-  return { validate: false };
-};
-
-const showCli = (route, option1, option2) => {
-  const validate = getOption(option1, option2);
-  return mdLink.mdLinks(route, validate)
+// Funcion Principal del CLI
+const cli = (route, arg1, arg2) => {
+  const validate = opt.getObjValidate(arg1, arg2);
+  return api.mdLinks(route, validate)
     .then((response) => {
-      let output = '';
+      let result = '';
       if (response.length === 0) {
-        output = chalk.red.bold.underline('Hello', 'world');
+        result = chalk.red('md file or link not found');
       }
-      if (option1 === '--stats' && option2 === '--validate') {
-        output = `\n${chalk.cyan('Total: ')} ${response.length} \n${chalk.cyan('Unique: ')} ${stat.unique(response)} \n${chalk.cyan('Broken: ')} ${stat.broken(response)}`;
+      if ((arg1 === '--stats' && arg2 === '--validate') || (arg1 === '--validate' && arg2 === '--stats')) {
+        result = opt.statValidateLinks(response);
       }
-      if (option1 === '--stats' && option2 === undefined) {
-        output = `\n${chalk.cyan('Total: ')} ${response.length} \n${chalk.cyan('Unique: ')} ${stat.unique(response)}`;
+      if (arg1 === '--stats' && arg2 === undefined) {
+        result = opt.statsLinks(response);
       }
-      if (option1 === '--validate' && option2 === undefined) {
-        response.forEach((objectLink) => {
-          if (objectLink.statusText === 'OK') {
-            output += `\n${chalk.cyan(objectLink.path)} ${chalk.magenta(objectLink.href)} ${chalk.green(objectLink.status)} ${chalk.bgGreen.black(objectLink.statusText)} ${chalk.yellow(objectLink.text)}`;
+      if (arg1 === '--validate' && arg2 === undefined) {
+        response.forEach((element) => {
+          if (element.statusText !== 'OK') {
+            result += `\n${chalk.rgb(121, 212, 213)(element.path)} ${chalk.rgb(245, 0, 142)(element.href)} ${chalk.red(element.status)} ${chalk.red(element.statusText)} ${chalk.white(element.text)} ✘`;
           } else {
-            output += `\n${chalk.cyan(objectLink.path)} ${chalk.magenta(objectLink.href)} ${chalk.red(objectLink.status)} ${chalk.bgRed.black(objectLink.statusText)} ${chalk.yellow(objectLink.text)}`;
+            result += `\n${chalk.rgb(121, 212, 213)(element.path)} ${chalk.rgb(245, 0, 142)(element.href)} ${chalk.green(element.status)} ${chalk.green(element.statusText)} ${chalk.white(element.text)} ✔`;
           }
         });
       }
-      if (option1 === undefined) {
-        response.forEach((objectLink) => {
-          output += `\n${chalk.cyan(objectLink.path)} ${chalk.magenta(objectLink.href)} ${chalk.yellow(objectLink.text)}`;
+      if (arg1 === undefined && arg2 === undefined) {
+        response.forEach((element) => {
+          result += `\n${chalk.rgb(121, 212, 213)(element.path)} ${chalk.rgb(245, 0, 142)(element.href)} ${chalk.white(element.text)}`;
         });
       }
-      return output;
+      if (arg1 !== '--stats' && arg1 !== '--validate' && arg1 !== undefined) {
+        result = chalk.red('The option does not exist. You can use "mdLinks --help" for more information');
+      }
+      return result;
     })
-    .catch(() => chalk.yellow('Ingresa una ruta válida.'));
+    .catch(() => chalk.red('Invalid path'));
 };
+// Opcion de help
+const helpOption = `
+  ${chalk.yellow.bold`  mdLinks 1.0.0\n`}
+  ${chalk.green.bold`  USAGE`}
+  ${chalk.white`    mdLinks `}${chalk.rgb(121, 212, 213)`<path>`} ${chalk.rgb(245, 0, 142)`[options]\n`}
+  ${chalk.green.bold`  PATH`}
+  ${chalk.white`    Is a absolute o relative path of file or directory.\n`}
+  ${chalk.green.bold`  OPTIONS`}
+  ${chalk.rgb(0, 255, 255)`    -h, --help           `} Display help.
+  ${chalk.rgb(0, 255, 255)`    -V, --version        `} Display version.
+  ${chalk.rgb(0, 255, 255)`    --stats              `} Basic stadistics on link.
+  ${chalk.rgb(0, 255, 255)`    --validate           `} Link validation.
+  ${chalk.rgb(0, 255, 255)`    --stats --validate   `} Statistics that require the validation results.`;
 
+const [, , ...args] = process.argv;
+if (args.length < 4) {
+  if (args[0] === '--help' || args[0] === '-h') {
+    console.log(helpOption);
+  }
+  if (args[0] === undefined) {
+    console.log(helpOption);
+  }
+  if (args[0] === '-V' || args[0] === '--version') {
+    console.log('1.0.0');
+  } else {
+    cli(args[0], args[1], args[2])
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }
+} else {
+  console.log(helpOption);
+}
 
-const [, , route, option1, option2] = process.argv;
-
-showCli(route, option1, option2).then((result) => console.log(result));
-
-module.exports = {
-  showCli,
-};
+module.exports = { cli };
