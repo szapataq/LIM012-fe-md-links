@@ -7,9 +7,6 @@ Md-links es un librería basada entorno de ejecución de Node.js, el cual lee ar
 - [Organizacion del proyecto](https://github.com/szapataq/LIM012-fe-md-links/projects/2).
 ![md-links]()
 
-## Introducción
-
-
 
 ## Consideraciones generales
 
@@ -48,24 +45,6 @@ las necesidades del usuario:
 - El ejecutable implementa `--validate`.
 - El ejecutable implementa `--stats`.
 - El ejecutable implementa `--validate` y `--stats` juntos.
-
-
-Para comenzar este proyecto tendrás que hacer un _fork_ y _clonar_ este
-repositorio.
-
-Antes de comenzar a codear, es necesario que pensemos en la arquitectura y
-boilerplate del proyecto, por lo que `antes de que empieces tu planificacion
-y a trabajar en la funcionalidad de tu proyecto deberás de haber
-creado tu boilerplate y tus tests`. Esto debería quedar
-detallado en tu repo y haberte asegurado de haber recibido feedback de uno
-de tus coaches. Una vez hayas terminado de definir la arquitectura y los tests
-de tu proyecto estarás lista para iniciar con tu **planificacion** por lo cual
-deberas de hacer uso de una serie de _issues_ y _milestones_ para priorizar
-tus tareas y crear un _project_ para organizar el trabajo y poder hacer
-seguimiento de tu progreso.
-
-Dentro de cada _milestone_ se crearán y asignarán los _issues_ que cada quien
-considere necesarios.
 
 ### JavaScript API
 
