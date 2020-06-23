@@ -1,8 +1,8 @@
 {
-  "name": "lim012-fe-md-links",
+  "name": "md-links",
   "version": "1.0.0",
   "description": "\"creacion de libreria mdLinks\"",
-  "main": "index.js",
+  "main": "src/mdLinks.js",
   "directories": {
     "test": "test"
   },
