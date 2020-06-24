@@ -5,7 +5,7 @@ const validateLinks = (route) => {
   const arrayLinks = routes.getLinksMd(route);
   const arrLinksPromises = arrayLinks.map((element) => fetch(element.href)// devuelve una promesa
     .then((res) => {
-      if (res.ok) {
+      if (res.status >= 200 && res.status < 400) {
         return {
           ...element,
           status: res.status,
