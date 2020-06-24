@@ -5,10 +5,10 @@ Md-links es un librería basada entorno de ejecución de Node.js, el cual lee ar
 - [Diagrama de flujo API](https://github.com/szapataq/LIM012-fe-md-links/blob/master/img/Mdlinks-API.png).
 - [Diagrama de flujo CLI](https://github.com/szapataq/LIM012-fe-md-links/blob/master/img/MdLinks-CLI.png).
 - [Organizacion del proyecto](https://github.com/szapataq/LIM012-fe-md-links/projects/2).
-![md-links]()
 
+## Instalacion
 
-## Consideraciones generales
+`npm i szapataq/LIM012-fe-md-links`
 
 - Para este proyecto no está permitido utilizar `async/await`.
 
