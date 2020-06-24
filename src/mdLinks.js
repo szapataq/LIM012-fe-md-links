@@ -1,15 +1,13 @@
 const route = require('./main.js');
 const validate = require('./validate.js');
 
-const mdLinks = (inputPath, options = { validate: false }) => new Promise((resolve, reject) => {
+const mdLinks = (inputPath, options = { validate: false }) => new Promise((resolve) => {
   if (route.isValidRoute(inputPath)) {
     if (options.validate === true) {
       resolve(validate.validateLinks(inputPath));
     } else {
       resolve(route.getLinksMd(inputPath));
     }
-  } else {
-    reject(new Error('FAIL'));
   }
 });
 
